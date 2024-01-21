@@ -3,7 +3,9 @@ import {useMemo, useState} from "react";
 function App() {
     const [number, setNumber] = useState(0)
     const [dark, setDark] = useState(false)
-    const doubleNumber = useMemo(() => {return slowFunction(number)}, [number])
+    const doubleNumber = useMemo(() => {
+        return slowFunction(number)
+    }, [number])
     const themeStyles = {
         backgroundColor: dark ? 'black' : 'white',
         color: dark ? 'white' : 'black'
