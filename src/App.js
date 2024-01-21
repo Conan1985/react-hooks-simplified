@@ -1,30 +1,44 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 function App() {
-    const [state, setState] = useState({count: 4, theme: 'blue'});
-    const count = state.count;
-    const theme = state.theme;
+    // const [resourceType, setResourceType] = useState('posts')
+    // const [items, setItmes] = useState()
+    //
+    // useEffect(() => {
+    //     fetch(`https://jsonplaceholder.typicode.com/${resourceType}`)
+    //         .then(response => response.json())
+    //         .then(json => setItmes(json))
+    // },[resourceType])
 
-    function decrementCount() {
-        setState(prevState => {
-            return {...prevState, count: prevState.count - 1};
-        })
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+    const handleResize = () => {
+        setWindowWidth(window.innerWidth)
     }
 
-    function incrementCount() {
-        setState(prevState => {
-            return {...prevState, count: prevState.count + 1};
-        })
-    }
+    useEffect(() => {
+        window.addEventListener("resize", handleResize)
 
-  return (
-      <>
-        <button onClick={decrementCount}>-</button>
-        <span>{count}</span>
-          <span>{theme}</span>
-        <button onClick={incrementCount}>+</button>
-      </>
-  );
+        return () => {
+            window.removeEventListener("resize", handleResize)
+        }
+    }, []);
+
+    return (
+        // <>
+        //     <div>
+        //         <button onClick={() => setResourceType('posts')}>Posts</button>
+        //         <button onClick={() => setResourceType('users')}>Users</button>
+        //         <button onClick={() => setResourceType('comments')}>Comments</button>
+        //     </div>
+        //     <h1>{resourceType}</h1>
+        //     {items.map(item => (
+        //         <pre>{JSON.stringify(item)}</pre>
+        //     ))}
+        // </>
+
+        <div>{windowWidth}</div>
+    );
 }
 
 export default App;
