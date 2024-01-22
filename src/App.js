@@ -1,20 +1,17 @@
-import {useState} from "react";
-import List from "./List";
+import useLocalStorage from "./useLocalStorage";
+import useUpdateLogger from "./useUpdateLogger";
 
 function App() {
-    const [input, setInput]  = useState("")
-
-    function handleChange(e) {
-        setInput(e.target.value)
-    }
+    const [name, setName] = useLocalStorage('name',  '')
+    useUpdateLogger(name)
 
     return (
-        <>
-            <input type={"text"} value={input} onChange={handleChange}/>
-            <List input={input} />
-        </>
+        <input
+            type={"text"}
+            value={name}
+            onChange={e => setName((e.target.value))}
+        />
     )
-
 }
 
 export default App
