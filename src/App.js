@@ -1,29 +1,17 @@
-import {useState, useTransition} from "react";
+import {useState} from "react";
+import List from "./List";
 
 function App() {
-    const [isPending, startTransition] = useTransition()
-    const [input, setInput] = useState("")
-    const [list, setList] = useState([])
+    const [input, setInput]  = useState("")
 
-    const LIST_SIZE = 20000
-
-    function handlechange(e) {
+    function handleChange(e) {
         setInput(e.target.value)
-        startTransition(() => {
-            const l = []
-            for (let i = 0; i < LIST_SIZE; i++) {
-                l.push(e.target.value)
-            }
-            setList(l)
-        })
     }
 
     return (
         <>
-            <input type={"text"} value={input} onChange={handlechange}/>
-            {isPending ? "Loading..." : list.map((item, index) => {
-                return <div key={index}>{item}</div>
-            })}
+            <input type={"text"} value={input} onChange={handleChange}/>
+            <List input={input} />
         </>
     )
 
