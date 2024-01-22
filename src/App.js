@@ -1,30 +1,26 @@
-import {useMemo, useState} from "react";
+import {useCallback, useState} from "react";
+import List from "./List";
 
 function App() {
-    const [number, setNumber] = useState(0)
+    const [number, setNumber] = useState(1)
     const [dark, setDark] = useState(false)
-    const doubleNumber = useMemo(() => {
-        return slowFunction(number)
-    }, [number])
-    const themeStyles = {
-        backgroundColor: dark ? 'black' : 'white',
-        color: dark ? 'white' : 'black'
+
+    const getItems = useCallback((increment) => {
+        return [number + increment, number + increment + 1, number + increment + 2]
+    },[number])
+
+    const theme = {
+        backgroundColor: dark ? '#333' : '#FFF',
+        color: dark ? '#FFF' : '#333'
     }
 
     return (
-        <>
+        <div style={theme}>
             <input type={number} value={number} onChange={e => setNumber(parseInt(e.target.value))}/>
-            <button onClick={() => setDark(prevDark => !prevDark)}>Change Theme</button>
-            <div style={themeStyles}>{doubleNumber}</div>
-        </>
+            <button onClick={() => setDark(prevDark => !prevDark)}>Toggle Theme</button>
+            <List getItems = {getItems} />
+        </div>
     )
-
-    function slowFunction(num) {
-        console.log('Calling slow function')
-        for (let i = 0; i < 1000000000; i++) {}
-            return num * 2
-
-    }
 
 }
 
